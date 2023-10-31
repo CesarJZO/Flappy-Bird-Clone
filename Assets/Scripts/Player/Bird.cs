@@ -36,6 +36,11 @@ namespace Player
             InputManager.Instance.OnJumpPerformed += OnJumpPerformed;
         }
 
+        private void OnDestroy()
+        {
+            InputManager.Instance.OnJumpPerformed -= OnJumpPerformed;
+        }
+
         private void OnJumpPerformed()
         {
             if (IsInsidePlayableArea)
@@ -47,10 +52,9 @@ namespace Player
             _rigidbody.velocity = Vector2.up * jumpStrength;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D()
         {
-            if (other.gameObject.CompareTag("Obstacle"))
-                Die();
+            Die();
         }
 
         private void Die()
@@ -61,6 +65,12 @@ namespace Player
             float hDirection = Random.value > 0.5f ? 1f : -1f;
             _rigidbody.velocity = new Vector2(hDirection, 1f) * dieStrength;
             OnDie?.Invoke();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, transform.lossyScale.magnitude);
         }
     }
 }
