@@ -43,6 +43,8 @@ namespace Player
 
         private void OnJumpPerformed()
         {
+            if (_dead) return;
+
             if (IsInsidePlayableArea)
                 Jump();
         }
