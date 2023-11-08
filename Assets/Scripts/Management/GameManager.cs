@@ -1,6 +1,7 @@
 ﻿using System;
 using Core;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Management
 {
@@ -11,6 +12,7 @@ namespace Management
         public event Action<GameState> OnStateChanged;
 
         [SerializeField] private GameState currentState;
+        [SerializeField] private UnityEvent<GameState> onStateChanged;
 
         public GameState CurrentState
         {
@@ -22,6 +24,7 @@ namespace Management
 
                 currentState = value;
                 OnStateChanged?.Invoke(currentState);
+                onStateChanged?.Invoke(currentState);
             }
         }
 
