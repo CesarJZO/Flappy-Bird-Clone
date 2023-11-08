@@ -10,6 +10,7 @@ namespace Player
     {
         public static Bird Instance { get; private set; }
 
+        public event Action OnJump;
         public event Action OnDie;
 
         [SerializeField] private float jumpStrength;
@@ -27,7 +28,10 @@ namespace Player
 
         private void Awake()
         {
-            Instance = this;
+            if (Instance)
+                Destroy(gameObject);
+            else
+                Instance = this;
             _rigidbody = GetComponent<Rigidbody2D>();
         }
 
@@ -52,6 +56,8 @@ namespace Player
         private void Jump()
         {
             _rigidbody.velocity = Vector2.up * jumpStrength;
+
+            OnJump?.Invoke();
         }
 
         private void OnCollisionEnter2D()
