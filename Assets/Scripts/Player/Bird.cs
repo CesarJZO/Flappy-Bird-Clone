@@ -20,6 +20,8 @@ namespace Player
         private Rigidbody2D _rigidbody;
         private bool _dead;
 
+        public bool Dead => _dead;
+
         private bool IsInsidePlayableArea => Physics2D.OverlapCircle(
             transform.position,
             transform.lossyScale.magnitude,
