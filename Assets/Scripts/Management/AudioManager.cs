@@ -41,11 +41,6 @@ namespace Management
                 Instance = this;
         }
 
-        private void Start()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         public void Play(AudioClip clip)
         {
             effectSource.pitch = 1f;
